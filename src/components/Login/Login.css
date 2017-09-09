@@ -1,0 +1,37 @@
+.login-container {
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	box-shadow: 0 3px 5px rgba(150,150,150,0.3);
+	position: relative;
+	top: 100%;
+}
+
+.login-form {
+	background-color: white;
+	padding: 25px;
+}
+
+.login-container .mdl-textfield {
+	display: block;
+	width: 100%;
+}
+
+.login-container .mdl-button {
+	min-width: 40%;
+	border: 2px solid black;
+}
+
+.login-button {
+	border-color: red;
+}
+
+.cancel-button {
+	margin-right: 40px;
+}
+
+.error-message {
+	color: red;
+	font-size: 14px;
+	text-align: center;
+}
