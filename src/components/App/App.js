@@ -19,7 +19,12 @@ export class App extends React.Component {
 		this.cancelSignup = this.cancelSignup.bind(this);
 	}
 
+
 	login() {
+
+		if (this.state.toSignUp) {
+			this.setState({toSignUp: false})
+		}
 		this.setState({ toLogin: true });
 	}
 
@@ -28,6 +33,9 @@ export class App extends React.Component {
 	}
 
 	signup() {
+		if (this.state.toLogin) {
+			this.setState({toLogin: false})
+		}
 		this.setState({ toSignUp: true });
 	}
 
@@ -36,6 +44,7 @@ export class App extends React.Component {
 	}
 
 	render() {
+
 	    return (
 	  		<div id="main">
 	  			<h1>Here's the home page</h1>
@@ -43,8 +52,8 @@ export class App extends React.Component {
 	  			<button onClick={ this.signup }>Sign Up</button>
 	  			<CSSTransitionGroup
 	  				transitionName="example"
-		            transitionEnterTimeout={150}
-		            transitionLeaveTimeout={150}
+	  				transitionEnterTimeout={500}
+	  				transitionLeaveTimeout={250}
 	  			>
 	  			{ this.state.toLogin &&
 	  				<Login toLogin={ this.cancelLogin } />

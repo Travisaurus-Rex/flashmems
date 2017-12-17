@@ -10,28 +10,23 @@
 .login-form {
 	background-color: white;
 	padding: 25px;
+	height: inherit;
 }
 
-.login-container .mdl-textfield {
-	display: block;
+.login-form-button {
 	width: 100%;
 }
 
-.login-container .mdl-button {
-	min-width: 40%;
-	border: 2px solid black;
-}
-
 .login-button {
-	border-color: red;
+
 }
 
 .cancel-button {
-	margin-right: 40px;
+	
 }
 
 .error-message {
 	color: red;
-	font-size: 14px;
+	font-size: 12px;
 	text-align: center;
 }

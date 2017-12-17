@@ -19,6 +19,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', routes);
 
+app.get('*', function (request, response){
+    response.sendFile(path.resolve(__dirname + '../', 'src', 'index.html'))
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

@@ -2,12 +2,13 @@ var express  = require('express');
 var mongoose = require('mongoose');
 var passwordHash = require('password-hash');
 var User     = require('../models/user');
+var FlashCard = require('../models/flashcard');
 var db       = require('../db/db');
 var router   = express.Router();
 
 mongoose.connect(db).then(() => {
 
-	router.post('/signup', (req, res, next) => {
+	router.post('/signup', (req, res) => {
 		
 		let { username, password } = req.body;
 
@@ -28,7 +29,7 @@ mongoose.connect(db).then(() => {
 
 	})
 
-	router.post('/login', (req, res, next) => {
+	router.post('/login', (req, res) => {
 
 		let { username, password } = req.body;
 
@@ -37,15 +38,18 @@ mongoose.connect(db).then(() => {
 
 			if (err) res.throw(new Error());
 
+			 // user exists
 			if (user) {
 
 				// compare password with hash from the database
 				let passTest = passwordHash.verify(password, user.password);
-				
+
+				// password is valid
 				if (passTest) {
 
 					res.json({status: 'Valid'});
-
+					
+				// password is invalid
 				} else {
 
 					res.json({
@@ -54,7 +58,7 @@ mongoose.connect(db).then(() => {
 					});
 
 				}
-
+			// user was not found in the db
 			} else {
 
 				res.json({
@@ -65,6 +69,29 @@ mongoose.connect(db).then(() => {
 			}
 
 		})
+	})
+
+	router.post('/flashcard', (req, res, next) => {
+		let { front, back } = req.body;
+
+		if (front && back) {
+			let newFlashCard = new FlashCard({
+				front: front,
+				back: back
+			})
+
+			newFlashCard.save(err => {
+				if (err) {
+					res.status(500).json({ message: 'Database error.' });
+				} else {
+					//res.status(500).json({ message:'Something went wrong.' });
+					res.json({status: 200, message: 'Flashcard saved successfully!'})
+				}
+			})
+
+		} else {
+			res.status(500).json({ message:'Something went wrong.' });
+		}
 	})
 })
 

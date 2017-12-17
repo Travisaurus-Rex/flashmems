@@ -2,6 +2,10 @@ import React from 'react';
 
 export class Dashboard extends React.Component {
 	render() {
-		return <h1>Dashboard Page</h1>;
+		return (
+			<div>
+				<h1>Dashboard Page</h1>
+			</div>
+		);
 	}
 }

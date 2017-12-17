@@ -19,16 +19,12 @@ export class Signup extends React.Component {
 	handleChange(event) {
 		let { id, value } = event.target;
 
-		switch(id) {
-			case 'username':
-				this.setState({ username: value });
-				break;
-			case 'password':
-				this.setState({ password: value });
-				break;
-			default:
-				// Nothin' to do here...
-				break;
+		if (id === 'signup_username'){
+			this.setState({ username: value });
+		}
+
+		if (id === 'signup_password') {
+			this.setState({ password: value });
 		}
 	}
 
@@ -60,13 +56,13 @@ export class Signup extends React.Component {
 				<form onSubmit={ this.handleSubmit }>
 					<label htmlFor="username" />
 					<input 
-						id="username"
+						id="signup_username"
 						type="text"
 						onChange={ this.handleChange }
 						/>
 					<label htmlFor="password" />
 					<input 
-						id="password"
+						id="signup_password"
 						type="password"
 						onChange={ this.handleChange }
 						/>

@@ -13,7 +13,8 @@ export class Login extends Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.submitForm   = this.submitForm.bind(this);
-		this.cancelLogin = this.cancelLogin.bind(this);
+		this.cancelLogin  = this.cancelLogin.bind(this);
+		this.validateForm = this.validateForm.bind(this);
 	}
 
 	handleChange(event) {
@@ -21,16 +22,12 @@ export class Login extends Component {
 
 		// switch case checks which field was edited
 		// and updates the state accordingly
-		switch(id) {
-			case 'username':
-				this.setState({ username: value });
-				break;
-			case 'password':
-				this.setState({ password: value });
-				break;
-			default:
-				// Nothin' to do here...
-				break;
+		if (id === 'login_username'){
+			this.setState({ username: value });
+		}
+
+		if (id === 'login_password') {
+			this.setState({ password: value });
 		}
 	}
 
@@ -38,8 +35,24 @@ export class Login extends Component {
 		this.props.toLogin();
 	}
 
-	submitForm(event) {
+	validateForm(event) {
+
 		event.preventDefault();
+	
+		let { username, password } = this.state;
+
+		let areStrings = (typeof username === 'string' && typeof password === 'string') ? true : false;
+
+		if (username && password && areStrings) {
+			this.submitForm();
+		} else {
+			this.setState({ errorMessage: 'Please fill out the form.'})
+		}
+
+		console.log('IS THIS WORKING?');
+	}
+
+	submitForm(event) {
 		
 		// store username and password in an object called user
 		let user = {
@@ -82,40 +95,46 @@ export class Login extends Component {
 		return (
 
 			<div className='login-container'>
-				<form className='login-form' onSubmit={ this.submitForm }>
-				<div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+				<form className='login-form' onSubmit={ this.validateForm }>
+					<div className='form-group'>
+						<label 
+							className=''
+							htmlFor='username'>Username</label>
+						<input 
+							className='form-control'
+							id='login_username' 
+							type='text' 
+							onChange={ this.handleChange } 
+							/>
+					</div>
+					<div className='form-group'>
+						<label 
+							className=''
+							htmlFor='password'>Password</label>
+						<input 
+							className='form-control'
+							id='login_password' 
+							type='password' 
+							onChange={ this.handleChange } 
+							/>
+					</div>
+					<div className="row">
+					<div className="col">
 					<input 
-						className='mdl-textfield__input'
-						id='username' 
-						type='text' 
-						onChange={ this.handleChange } 
-						/>
-					<label 
-						className='mdl-textfield__label'
-						htmlFor='username'>Username</label>
-				</div>
-				<div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
-					<input 
-						className='mdl-textfield__input'
-						id='password' 
-						type='password' 
-						onChange={ this.handleChange } 
-						/>
-					<label 
-						className='mdl-textfield__label'
-						htmlFor='password'>Password</label>
-				</div>
-					<input 
-						className='mdl-button mdl-js-button cancel-button'
+						className='login-form-button cancel-button btn btn-outline-dark'
 						type='button'
 						onClick={ this.cancelLogin}  
 						value='Cancel'  
 						/>
+					</div>
+					<div className="col text-right">
 					<input 
-						className='mdl-button mdl-js-button login-button'
+						className='login-form-button login-button btn btn-primary'
 						type='submit' 
 						value='Login'  
 						/>
+						</div>
+					</div>
 					{ this.state.errorMessage &&
 						<h3 className="error-message">{ this.state.errorMessage }</h3>
 					}

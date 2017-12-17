@@ -1,19 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
 
 import { App } from './components/App/App';
 import { Signup } from './components/Signup/Signup';
 import { Dashboard } from './components/Dashboard/Dashboard';
-
-const customHistory = createBrowserHistory();
+import { Quiz } from './components/Quiz/Quiz';
+import { CreateFlashcardForm } from './components/CreateFlashcardForm/CreateFlashcardForm';
+import { Menu } from './components/shared/Menu/Menu';
 
 export const Routes = (props) => (
-	<Router history={ customHistory }>
+	<Router basename="/">
 		<div>
+			<Menu />
 			<Route exact path="/" component={App} />
 			<Route path="/signup" component={Signup} />
 			<Route path="/dashboard" component={Dashboard} />
+			<Route path="/quiz" component={Quiz} />
+			<Route path="/create/flashcard" component={CreateFlashcardForm} />
 		</div>
 	</Router>
 )
